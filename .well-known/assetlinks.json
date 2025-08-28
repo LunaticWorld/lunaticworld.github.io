@@ -4,9 +4,8 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.personalworld.oneword",
-      "sha256_cert_fingerprints": [
-        "D4:45:AC:49:A1:5A:18:01:4A:63:68:58:A2:CB:DC:46:F9:AC:D0:DF:73:DC:E5:F0:EE:A0:D6:A9:88:FD:FB:FB" 
-      ]
+      "sha256_cert_fingerprints":
+        ["D4:45:AC:49:A1:5A:18:01:4A:63:68:58:A2:CB:DC:46:F9:AC:D0:DF:73:DC:E5:F0:EE:A0:D6:A9:88:FD:FB:FB"]
     }
   }
 ]
