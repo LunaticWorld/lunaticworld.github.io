@@ -7,5 +7,14 @@
       "sha256_cert_fingerprints":
         ["D4:45:AC:49:A1:5A:18:01:4A:63:68:58:A2:CB:DC:46:F9:AC:D0:DF:73:DC:E5:F0:EE:A0:D6:A9:88:FD:FB:FB"]
     }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.personalworld.braingame",
+      "sha256_cert_fingerprints":
+        ["C5:1F:FE:92:9D:AA:8A:BB:11:5B:B9:2F:A8:05:E5:76:9F:96:83:CA:B3:0A:0A:45:65:A6:70:8F:23:98:64:34"]
+    }
   }
 ]
