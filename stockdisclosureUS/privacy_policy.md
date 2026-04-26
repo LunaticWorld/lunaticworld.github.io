@@ -107,7 +107,7 @@ When an account deletion request is processed, we delete or deactivate account-r
 - Invite code and reward state associated with the account
 - App account settings stored on the server
 
-Some records may be retained for a limited period when necessary for security, fraud prevention, legal compliance, backup integrity, or dispute handling. Security and fraud-prevention logs may be retained for up to 90 days unless a longer period is required by law.
+Some records may be retained for a limited period when necessary for security, fraud prevention, legal compliance, backup integrity, or dispute handling. Minimal reward-claim records used to prevent repeated welcome or invite reward abuse may be retained for up to 180 days unless a longer period is required by law.
 
 Anonymous or local-only data can generally be removed by clearing the App data or uninstalling the App from the device.
 
