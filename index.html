@@ -2,13 +2,159 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>LockOnWord Redirect</title>
-  <script>
-    // 앱 미설치 시 Play 스토어로 이동
-    window.location.href = "https://play.google.com/store/apps/details?id=com.personalworld.oneword";
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer Apps</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f8fb;
+      --surface: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --accent: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    main {
+      width: min(720px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .app-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .app-row {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .app-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border-radius: 11px;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .bg-brain { background: #f97316; }
+    .bg-lock { background: #4f46e5; }
+    .bg-rain { background: #0ea5e9; }
+    .bg-dart { background: #16a34a; }
+    .bg-sec { background: #dc2626; }
+
+    .app-name {
+      font-size: 16px;
+      font-weight: 650;
+    }
+
+    .policy-link {
+      color: var(--accent);
+      font-size: 14px;
+      font-weight: 650;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .policy-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 520px) {
+      main {
+        width: min(100% - 24px, 720px);
+        padding: 32px 0;
+      }
+
+      .app-row {
+        grid-template-columns: 44px 1fr;
+      }
+
+      .app-icon {
+        width: 44px;
+        height: 44px;
+      }
+
+      .policy-link {
+        grid-column: 2;
+        justify-self: start;
+      }
+    }
+  </style>
 </head>
 <body>
-  <p>잠시 후 스토어로 이동합니다...</p>
+  <main>
+    <h1>개발자 앱</h1>
+    <p class="subtitle">각 앱의 개인정보처리방침을 확인할 수 있습니다.</p>
+
+    <section class="app-list" aria-label="Developer apps">
+      <div class="app-row">
+        <div class="app-icon bg-brain" aria-hidden="true">BG</div>
+        <div class="app-name">Brain Game: Stroop</div>
+        <a class="policy-link" href="./braingame/privacy_policy.md">privacy_policy</a>
+      </div>
+
+      <div class="app-row">
+        <div class="app-icon bg-lock" aria-hidden="true">LW</div>
+        <div class="app-name">LockOn Word</div>
+        <a class="policy-link" href="./lockonword/Privacy_policy.md">privacy_policy</a>
+      </div>
+
+      <div class="app-row">
+        <div class="app-icon bg-rain" aria-hidden="true">RF</div>
+        <div class="app-name">Short-term Precipitation Forecast</div>
+        <a class="policy-link" href="./short_temprecipitationforecast/privacy_policy.md">privacy_policy</a>
+      </div>
+
+      <div class="app-row">
+        <div class="app-icon bg-dart" aria-hidden="true">KR</div>
+        <div class="app-name">주식 공시알림[KOSPI, KOSDAQ]</div>
+        <a class="policy-link" href="./stockdisclosure/privacy_policy.md">privacy_policy</a>
+      </div>
+
+      <div class="app-row">
+        <div class="app-icon bg-sec" aria-hidden="true">US</div>
+        <div class="app-name">US Stock Disclosure Alerts</div>
+        <a class="policy-link" href="./stockdisclosureUS/privacy_policy.md">privacy_policy</a>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
