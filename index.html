@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Apps</title>
+  <meta name="description" content="LunaticWorld에서 제공하는 모바일 앱과 개인정보처리방침, 서비스 고지사항을 확인할 수 있는 공식 페이지입니다.">
+  <title>LunaticWorld Developer Apps</title>
   <style>
     :root {
       color-scheme: light;
@@ -13,6 +14,9 @@
       --muted: #6b7280;
       --line: #e5e7eb;
       --accent: #2563eb;
+      --accent-soft: #eff6ff;
+      --warning: #92400e;
+      --warning-bg: #fffbeb;
     }
 
     * {
@@ -25,53 +29,128 @@
       background: var(--bg);
       color: var(--text);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
     }
 
     main {
-      width: min(720px, calc(100% - 32px));
+      width: min(920px, calc(100% - 32px));
       margin: 0 auto;
       padding: 56px 0;
     }
 
+    h1, h2, h3 {
+      line-height: 1.25;
+    }
+
     h1 {
+      margin: 0 0 10px;
+      font-size: clamp(30px, 5vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      font-weight: 760;
+      letter-spacing: -0.015em;
+    }
+
+    h3 {
       margin: 0 0 8px;
-      font-size: 28px;
-      font-weight: 750;
-      letter-spacing: 0;
+      font-size: 17px;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .hero {
+      margin-bottom: 22px;
+      padding: 28px;
+      background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
     }
 
     .subtitle {
-      margin: 0 0 28px;
+      max-width: 760px;
       color: var(--muted);
-      font-size: 15px;
+      font-size: 16px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 11px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    .section {
+      margin-top: 18px;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+
+    .notice {
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: var(--warning-bg);
+      border: 1px solid #fde68a;
+      border-radius: 14px;
+      color: var(--warning);
+      font-size: 14px;
     }
 
     .app-list {
       display: grid;
       gap: 12px;
+      margin-top: 16px;
     }
 
     .app-row {
       display: grid;
-      grid-template-columns: 48px 1fr auto;
+      grid-template-columns: 52px 1fr auto;
       align-items: center;
       gap: 14px;
       padding: 16px;
-      background: var(--surface);
+      background: #ffffff;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+      border-radius: 14px;
     }
 
     .app-icon {
       display: grid;
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       place-items: center;
-      border-radius: 11px;
+      border-radius: 13px;
       color: #ffffff;
       font-size: 15px;
       font-weight: 800;
+      letter-spacing: -0.02em;
     }
 
     .bg-brain { background: #f97316; }
@@ -82,13 +161,33 @@
 
     .app-name {
       font-size: 16px;
-      font-weight: 650;
+      font-weight: 720;
+    }
+
+    .app-desc {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .link-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
     }
 
     .policy-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 10px;
       color: var(--accent);
-      font-size: 14px;
-      font-weight: 650;
+      background: var(--accent-soft);
+      border: 1px solid #dbeafe;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
       text-decoration: none;
       white-space: nowrap;
     }
@@ -97,64 +196,211 @@
       text-decoration: underline;
     }
 
-    @media (max-width: 520px) {
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #ffffff;
+    }
+
+    .card ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .disclaimer-list {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 680px) {
       main {
-        width: min(100% - 24px, 720px);
+        width: min(100% - 24px, 920px);
         padding: 32px 0;
       }
 
+      .hero, .section {
+        padding: 20px;
+      }
+
       .app-row {
-        grid-template-columns: 44px 1fr;
+        grid-template-columns: 48px 1fr;
       }
 
       .app-icon {
-        width: 44px;
-        height: 44px;
+        width: 48px;
+        height: 48px;
       }
 
-      .policy-link {
+      .link-group {
         grid-column: 2;
-        justify-self: start;
+        justify-content: flex-start;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
   <main>
-    <h1>개발자 앱</h1>
-    <p class="subtitle">각 앱의 개인정보처리방침을 확인할 수 있습니다.</p>
-
-    <section class="app-list" aria-label="Developer apps">
-      <div class="app-row">
-        <div class="app-icon bg-brain" aria-hidden="true">BG</div>
-        <div class="app-name">Brain Game: Stroop</div>
-        <a class="policy-link" href="./braingame/privacy_policy.md">privacy_policy</a>
-      </div>
-
-      <div class="app-row">
-        <div class="app-icon bg-lock" aria-hidden="true">LW</div>
-        <div class="app-name">LockOn Word</div>
-        <a class="policy-link" href="./lockonword/Privacy_policy.md">privacy_policy</a>
-      </div>
-
-      <div class="app-row">
-        <div class="app-icon bg-rain" aria-hidden="true">RF</div>
-        <div class="app-name">Short-term Precipitation Forecast</div>
-        <a class="policy-link" href="./short_temprecipitationforecast/privacy_policy.md">privacy_policy</a>
-      </div>
-
-      <div class="app-row">
-        <div class="app-icon bg-dart" aria-hidden="true">KR</div>
-        <div class="app-name">주식 공시알림[KOSPI, KOSDAQ]</div>
-        <a class="policy-link" href="./stockdisclosure/privacy_policy.md">privacy_policy</a>
-      </div>
-
-      <div class="app-row">
-        <div class="app-icon bg-sec" aria-hidden="true">US</div>
-        <div class="app-name">US Stock Disclosure Alerts</div>
-        <a class="policy-link" href="./stockdisclosureUS/privacy_policy.md">privacy_policy</a>
+    <section class="hero" aria-labelledby="page-title">
+      <h1 id="page-title">LunaticWorld Developer Apps</h1>
+      <p class="subtitle">
+        LunaticWorld에서 제공하는 Android 앱의 공식 안내 페이지입니다. 이 페이지에서는 각 앱의 주요 기능,
+        개인정보처리방침, 문의처, 그리고 공시·기업정보 앱에 관한 중요 고지사항을 확인할 수 있습니다.
+      </p>
+      <div class="meta-row" aria-label="Developer information">
+        <span class="pill">Developer: LunaticWorld</span>
+        <a class="pill" href="mailto:j12i29j12i29@gmail.com">Contact: j12i29j12i29@gmail.com</a>
       </div>
     </section>
+
+    <section class="section" aria-labelledby="disclosure-apps-title">
+      <h2 id="disclosure-apps-title">공시 및 기업정보 앱 안내</h2>
+      <p>
+        아래 앱은 DART 또는 SEC 등 공개 기업 공시 자료를 더 쉽게 확인할 수 있도록 알림, 목록 조회,
+        원문 링크, 문서 요약 기능을 제공하는 정보 도구입니다.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <h3>주식 공시알림[KOSPI, KOSDAQ]</h3>
+          <p class="app-desc">한국 DART 공개 공시 자료를 기반으로 기업 공시 알림과 조회 기능을 제공합니다.</p>
+          <ul>
+            <li>공개 기업 공시 알림</li>
+            <li>KOSPI/KOSDAQ 기업 공시 확인</li>
+            <li>공식 공시 원문 확인 보조</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>미국주식 공시알람</h3>
+          <p class="app-desc">미국 SEC 공개 공시 자료를 기반으로 기업 공시 알림과 AI 요약 기능을 제공합니다.</p>
+          <ul>
+            <li>SEC 공개 공시 모니터링</li>
+            <li>기업 공시 알림 및 문서 요약</li>
+            <li>공식 공시 원문 확인 보조</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="notice" role="note">
+        <strong>중요 고지:</strong> LunaticWorld의 공시 및 기업정보 앱은 증권 중개, 금융상품 판매,
+        투자자문, 일임운용, 포트폴리오 관리, 개인별 재무설계, 매수·매도 추천, 거래 신호 제공 또는
+        거래 실행 서비스를 제공하지 않습니다. 앱에서 제공되는 알림 및 요약은 공개 공시 자료를 기반으로 한
+        정보 제공 및 문서 확인 보조 목적이며, 정확한 내용은 반드시 공식 공시 원문을 확인해야 합니다.
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="apps-title">
+      <h2 id="apps-title">전체 앱 및 개인정보처리방침</h2>
+      <p class="subtitle">각 앱의 개인정보처리방침과 관련 안내 페이지를 확인할 수 있습니다.</p>
+
+      <div class="app-list" aria-label="Developer apps">
+        <article class="app-row">
+          <div class="app-icon bg-brain" aria-hidden="true">BG</div>
+          <div>
+            <div class="app-name">Brain Game: Stroop</div>
+            <div class="app-desc">Stroop test 기반 두뇌 게임 앱입니다.</div>
+          </div>
+          <div class="link-group">
+            <a class="policy-link" href="./braingame/privacy_policy.md">Privacy Policy</a>
+          </div>
+        </article>
+
+        <article class="app-row">
+          <div class="app-icon bg-lock" aria-hidden="true">LW</div>
+          <div>
+            <div class="app-name">LockOn Word</div>
+            <div class="app-desc">단어 학습 및 복습을 돕는 언어 학습 앱입니다.</div>
+          </div>
+          <div class="link-group">
+            <a class="policy-link" href="./lockonword/Privacy_policy.md">Privacy Policy</a>
+          </div>
+        </article>
+
+        <article class="app-row">
+          <div class="app-icon bg-rain" aria-hidden="true">RF</div>
+          <div>
+            <div class="app-name">Short-term Precipitation Forecast</div>
+            <div class="app-desc">초단기 강수 예측 정보를 확인하는 날씨 정보 앱입니다.</div>
+          </div>
+          <div class="link-group">
+            <a class="policy-link" href="./short_temprecipitationforecast/privacy_policy.md">Privacy Policy</a>
+          </div>
+        </article>
+
+        <article class="app-row">
+          <div class="app-icon bg-dart" aria-hidden="true">KR</div>
+          <div>
+            <div class="app-name">주식 공시알림[KOSPI, KOSDAQ]</div>
+            <div class="app-desc">DART 공개 공시 자료를 기반으로 공시 알림과 조회 기능을 제공하는 앱입니다.</div>
+          </div>
+          <div class="link-group">
+            <a class="policy-link" href="./stockdisclosure/privacy_policy.md">Privacy Policy</a>
+          </div>
+        </article>
+
+        <article class="app-row">
+          <div class="app-icon bg-sec" aria-hidden="true">US</div>
+          <div>
+            <div class="app-name">미국주식 공시알람</div>
+            <div class="app-desc">SEC 공개 공시 자료를 기반으로 공시 알림과 AI 요약 기능을 제공하는 앱입니다.</div>
+          </div>
+          <div class="link-group">
+            <a class="policy-link" href="./stockdisclosureUS/privacy_policy.md">Privacy Policy</a>
+            <a class="policy-link" href="./stockdisclosureUS/privacy_policy_ko.md">개인정보처리방침</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="policy-title">
+      <h2 id="policy-title">공시 정보 서비스에 관한 추가 고지</h2>
+      <p>
+        공시 및 기업정보 앱의 정보는 공개된 규제기관 자료를 기반으로 제공됩니다. AI 요약 또는 번역 기능이
+        제공되는 경우에도 이는 원문 이해를 돕기 위한 보조 기능이며, 법적·재무적 판단의 최종 근거로 사용되어서는 안 됩니다.
+      </p>
+      <ul class="disclaimer-list">
+        <li>투자 권유, 투자 자문, 매수·매도 추천을 제공하지 않습니다.</li>
+        <li>금융상품 판매, 증권 중개, 거래 실행 서비스를 제공하지 않습니다.</li>
+        <li>개인별 재무상황에 따른 상담이나 포트폴리오 관리를 제공하지 않습니다.</li>
+        <li>공시 내용의 정확한 확인은 각 규제기관 또는 발행사의 공식 원문을 기준으로 해야 합니다.</li>
+      </ul>
+      <p class="contact">
+        문의: <a href="mailto:j12i29j12i29@gmail.com">j12i29j12i29@gmail.com</a>
+      </p>
+    </section>
+
+    <footer>
+      © LunaticWorld. This page is maintained for app information, policy disclosure, and user support.
+    </footer>
   </main>
 </body>
 </html>
