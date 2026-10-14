@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>ぼくたちの家 · JLPT Monogatari</title>
+<style>
+  :root{
+    --paper:#F6F1E4; --card:#FCFAF2; --ink:#2B2620; --sub:#6E6455;
+    --green:#18573A; --chip:#DCE9D4; --line:#E4DCC8; --fs:19px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0; background:var(--paper); color:var(--ink);
+    font-family:-apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;}
+  .wrap{max-width:680px; margin:0 auto; padding:20px 18px 64px;}
+  .jp{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;}
+  h1{font-size:26px; margin:6px 0 2px;}
+  .series{color:var(--sub); font-size:13px; letter-spacing:.04em;}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:16px; margin:12px 0; cursor:pointer; text-align:left; width:100%;
+    font:inherit; color:inherit; display:block;}
+  .card:active{transform:scale(.995)}
+  .row{display:flex; align-items:center; gap:14px;}
+  .cover{width:64px; height:92px; object-fit:cover; border-radius:8px; flex:none;
+    background:var(--chip);}
+  .lv{font-weight:700; font-size:19px;}
+  .meta{color:var(--sub); font-size:13px; margin-top:3px;}
+  .badge{display:inline-block; background:var(--chip); color:var(--green);
+    border-radius:999px; padding:2px 9px; font-size:12px; font-weight:600;}
+  .unit{margin:22px 0 8px; font-weight:700; font-size:16px;}
+  .unit .jp{font-weight:600;}
+  .scene{display:flex; justify-content:space-between; align-items:center; gap:10px;}
+  .scene .t{font-size:16px;}
+  .scene .s{color:var(--sub); font-size:12px; white-space:nowrap;}
+  .artdot{color:var(--green); font-size:11px;}
+  /* login */
+  #login{max-width:420px; margin:12vh auto 0; text-align:center;}
+  #login .card{cursor:default; text-align:center; padding:28px 22px;}
+  input[type=password]{width:100%; padding:13px 14px; font-size:16px; margin:14px 0 10px;
+    border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink);}
+  .btn{background:var(--green); color:#fff; border:none; border-radius:10px;
+    padding:13px 18px; font-size:16px; font-weight:600; cursor:pointer; width:100%;}
+  .btn.sub{background:var(--chip); color:var(--green);}
+  .btn:disabled{opacity:.5}
+  .err{color:#B3261E; font-size:13px; min-height:18px; margin-top:8px;}
+  /* reader */
+  #toolbar{position:sticky; top:0; z-index:5; background:var(--paper);
+    display:flex; gap:8px; align-items:center; padding:10px 0; border-bottom:1px solid var(--line);}
+  #toolbar button{background:var(--card); border:1px solid var(--line); color:var(--ink);
+    border-radius:999px; padding:7px 13px; font-size:13px; cursor:pointer;}
+  #toolbar button.on{background:var(--green); color:#fff; border-color:var(--green);}
+  #toolbar .sp{flex:1}
+  #sceneTitle{margin:18px 0 4px; font-size:21px;}
+  #sceneSub{color:var(--sub); font-size:13px; margin-bottom:14px;}
+  #bodyText{font-size:var(--fs); line-height:2.05;}
+  #bodyText p{margin:0 0 1.1em;}
+  rt{font-size:.52em; color:var(--sub);}
+  body.nofuri rt{display:none;}
+  #artImg{width:100%; border-radius:12px; margin:18px 0 4px; display:block;}
+  .navrow{display:flex; gap:10px; margin-top:28px;}
+  .navrow .btn{width:auto; flex:1;}
+  .hidden{display:none !important;}
+  .center{text-align:center; color:var(--sub); padding:40px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 로그인 -->
+  <section id="login" class="hidden">
+    <div class="card">
+      <div class="jp" style="font-size:22px; font-weight:700;">ぼくたちの家</div>
+      <div class="series">JLPT Monogatari · 개인 열람용</div>
+      <input type="password" id="pw" placeholder="비밀번호" autocomplete="current-password">
+      <button class="btn" id="loginBtn">열기</button>
+      <div class="err" id="loginErr"></div>
+    </div>
+  </section>
+
+  <!-- 서재 -->
+  <section id="library" class="hidden">
+    <div class="series">JLPT Monogatari</div>
+    <h1 class="jp">ぼくたちの家</h1>
+    <div id="resumeBox"></div>
+    <div id="bookList"></div>
+  </section>
+
+  <!-- 목차 -->
+  <section id="toc" class="hidden">
+    <div id="toolbar">
+      <button id="tocBack">← 서재</button>
+      <span class="sp"></span>
+      <span class="badge" id="tocLv"></span>
+    </div>
+    <div id="tocList"></div>
+  </section>
+
+  <!-- 본문 -->
+  <section id="reader" class="hidden">
+    <div id="toolbar">
+      <button id="rdBack">← 목차</button>
+      <span class="sp"></span>
+      <button id="furiBtn" class="on">후리가나</button>
+      <button id="fsDown">가−</button>
+      <button id="fsUp">가＋</button>
+    </div>
+    <h2 id="sceneTitle" class="jp"></h2>
+    <div id="sceneSub"></div>
+    <div id="bodyText" class="jp"></div>
+    <img id="artImg" class="hidden" alt="">
+    <div class="navrow">
+      <button class="btn sub" id="prevBtn">이전 장면</button>
+      <button class="btn sub" id="nextBtn">다음 장면</button>
+    </div>
+  </section>
+
+  <div id="loading" class="center">불러오는 중…</div>
+</div>
+
+<script>
+"use strict";
+/* ===== 배포 시 치환되는 설정 ===== */
+const SUPABASE_URL = "https://wlkkcdneyoqfinhybiam.supabase.co";
+const ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indsa2tjZG5leW9xZmluaHliaWFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc4MzA4NDAsImV4cCI6MjA5MzQwNjg0MH0.sKPM8iDr4TiKPK-oI-Z2CdHDAwgyCr5gyHpsAbXbFM4";
+const FN_URL = SUPABASE_URL + "/functions/v1/jlpt_web_reader";
+/* 로컬 미리보기: ?local=1 이면 ./data/ 에서 직접 읽는다 (배포본에는 data가 없다) */
+const LOCAL = new URLSearchParams(location.search).has("local");
+const DATA = "./data/";
+
+let token = sessionStorage.getItem("jr_token") || "";
+let manifest = null;
+let curBook = null, curFile = null, curScene = null;
+
+const $ = (id) => document.getElementById(id);
+function show(id){
+  for (const s of ["login","library","toc","reader","loading"]) $(s).classList.add("hidden");
+  if (id) $(id).classList.remove("hidden");
+  window.scrollTo(0,0);
+}
+function esc(s){ return s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+async function api(body){
+  const r = await fetch(FN_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "apikey": ANON_KEY,
+               "Authorization": "Bearer " + ANON_KEY, "x-reader-token": token },
+    body: JSON.stringify(body),
+  });
+  if (r.status === 401 && body.action !== "login") { logout(); throw new Error("unauthorized"); }
+  if (!r.ok) throw new Error("api_" + r.status);
+  return r.json();
+}
+
+async function getManifest(){
+  if (manifest) return manifest;
+  if (LOCAL) manifest = await (await fetch(DATA + "manifest.json")).json();
+  else { const { url } = await api({ action: "manifest" }); manifest = await (await fetch(url)).json(); }
+  return manifest;
+}
+async function getCoverUrl(){
+  if (LOCAL) return DATA + "art/" + manifest.cover;
+  const { url } = await api({ action: "cover" }); return url;
+}
+async function getScene(file){
+  if (LOCAL) {
+    const scene = await (await fetch(DATA + "scenes/" + file)).json();
+    return { scene, artUrl: scene.art ? DATA + "art/" + scene.art : null };
+  }
+  const { sceneUrl, artUrl } = await api({ action: "scene", file });
+  const scene = await (await fetch(sceneUrl)).json();
+  return { scene, artUrl };
+}
+
+/* ===== 로그인 ===== */
+function logout(){
+  token = ""; sessionStorage.removeItem("jr_token");
+  show("login"); $("pw").value = "";
+}
+async function doLogin(){
+  const pw = $("pw").value;
+  if (!pw) return;
+  $("loginBtn").disabled = true; $("loginErr").textContent = "";
+  try {
+    if (LOCAL) { token = "local"; }
+    else {
+      const r = await fetch(FN_URL, { method: "POST",
+        headers: { "Content-Type": "application/json", "apikey": ANON_KEY },
+        body: JSON.stringify({ action: "login", password: pw }) });
+      if (!r.ok) throw new Error("bad");
+      token = (await r.json()).token;
+      sessionStorage.setItem("jr_token", token);
+    }
+    await openLibrary();
+  } catch { $("loginErr").textContent = "비밀번호가 맞지 않아요."; }
+  $("loginBtn").disabled = false;
+}
+$("loginBtn").addEventListener("click", doLogin);
+$("pw").addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
+
+/* ===== 서재 ===== */
+async function openLibrary(){
+  show("loading");
+  const m = await getManifest();
+  const cover = await getCoverUrl();
+  const prog = JSON.parse(localStorage.getItem("jr_progress") || "null");
+  $("resumeBox").innerHTML = prog ? `
+    <button class="card" id="resumeBtn"><div class="row">
+      <img class="cover" src="${cover}" alt="">
+      <div><span class="badge">이어서 읽기</span>
+      <div class="lv" style="margin-top:5px;">${esc(prog.title || "읽던 장면")}</div>
+      <div class="meta">${esc(prog.bookLabel || "")} · 읽던 위치가 저장돼 있어요</div></div>
+    </div></button>` : "";
+  if (prog) $("resumeBtn").addEventListener("click", () => openScene(prog.file, true));
+  $("bookList").innerHTML = m.books.map((b) => {
+    const scenes = b.units.reduce((n, u) => n + u.scenes.length, 0);
+    return `<button class="card" data-book="${b.id}"><div class="row">
+      <img class="cover" src="${cover}" alt="">
+      <div><div class="lv">${b.label}</div>
+      <div class="meta">유닛 ${b.units.length}개 · 장면 ${scenes}개</div></div>
+    </div></button>`;
+  }).join("");
+  for (const el of document.querySelectorAll("[data-book]"))
+    el.addEventListener("click", () => openToc(el.dataset.book));
+  show("library");
+}
+
+/* ===== 목차 ===== */
+function openToc(bookId){
+  curBook = manifest.books.find((b) => b.id === bookId);
+  $("tocLv").textContent = curBook.label;
+  $("tocList").innerHTML = curBook.units.map((u) => `
+    <div class="unit"><span class="jp">${esc(u.title)}</span></div>
+    ${u.scenes.map((s) => `
+      <button class="card scene" data-file="${s.file}">
+        <span class="t jp">${esc(s.title)} ${s.art ? '<span class="artdot">● 그림</span>' : ""}</span>
+        <span class="s">${esc(s.subtitle)}</span>
+      </button>`).join("")}
+  `).join("");
+  for (const el of document.querySelectorAll("[data-file]"))
+    el.addEventListener("click", () => openScene(el.dataset.file, false));
+  show("toc");
+}
+$("tocBack").addEventListener("click", openLibrary);
+
+/* ===== 본문 ===== */
+function renderSentence(s){
+  const rubies = [...(s.ruby || [])].sort((a, b) => a[0] - b[0]);
+  let out = "", pos = 0;
+  for (const [st, en, rd] of rubies) {
+    if (st < pos) continue;
+    out += esc(s.jp.slice(pos, st));
+    out += `<ruby>${esc(s.jp.slice(st, en))}<rt>${esc(rd)}</rt></ruby>`;
+    pos = en;
+  }
+  return out + esc(s.jp.slice(pos));
+}
+async function openScene(file, restore){
+  show("loading");
+  const { scene, artUrl } = await getScene(file);
+  curFile = file; curScene = scene;
+  if (!curBook || !manifest.books.some(b => b.id === scene.book_id && b === curBook))
+    curBook = manifest.books.find((b) => b.id === scene.book_id);
+  $("sceneTitle").textContent = scene.title;
+  $("sceneSub").textContent = `${scene.subtitle} · ${curBook ? curBook.label : ""}`;
+  $("bodyText").innerHTML = scene.blocks.map((b) =>
+    `<p>${b.sentences.map(renderSentence).join("")}</p>`).join("");
+  const img = $("artImg");
+  if (artUrl) { img.src = artUrl; img.classList.remove("hidden"); }
+  else { img.removeAttribute("src"); img.classList.add("hidden"); }
+  $("prevBtn").disabled = !scene.prev; $("nextBtn").disabled = !scene.next;
+  $("prevBtn").style.opacity = scene.prev ? 1 : .4;
+  $("nextBtn").style.opacity = scene.next ? 1 : .4;
+  show("reader");
+  const prog = JSON.parse(localStorage.getItem("jr_progress") || "null");
+  if (restore && prog && prog.file === file && prog.y) window.scrollTo(0, prog.y);
+  saveProgress(0);
+}
+function saveProgress(y){
+  if (!curFile || !curScene) return;
+  localStorage.setItem("jr_progress", JSON.stringify({
+    file: curFile, title: curScene.title,
+    bookLabel: curBook ? curBook.label : "", y: y ?? window.scrollY }));
+}
+let scrollTimer = null;
+window.addEventListener("scroll", () => {
+  if ($("reader").classList.contains("hidden")) return;
+  clearTimeout(scrollTimer); scrollTimer = setTimeout(() => saveProgress(), 400);
+}, { passive: true });
+$("rdBack").addEventListener("click", () => openToc(curScene.book_id));
+$("prevBtn").addEventListener("click", () => { if (curScene.prev) openScene(curScene.prev, false); });
+$("nextBtn").addEventListener("click", () => { if (curScene.next) openScene(curScene.next, false); });
+
+/* 표시 설정 */
+const furiOn = localStorage.getItem("jr_furi") !== "0";
+document.body.classList.toggle("nofuri", !furiOn);
+$("furiBtn").classList.toggle("on", furiOn);
+$("furiBtn").addEventListener("click", () => {
+  const on = document.body.classList.toggle("nofuri");
+  localStorage.setItem("jr_furi", on ? "0" : "1");
+  $("furiBtn").classList.toggle("on", !on);
+});
+let fs = parseInt(localStorage.getItem("jr_fs") || "19", 10);
+function applyFs(){ document.documentElement.style.setProperty("--fs", fs + "px"); }
+applyFs();
+$("fsUp").addEventListener("click", () => { fs = Math.min(26, fs + 1); localStorage.setItem("jr_fs", fs); applyFs(); });
+$("fsDown").addEventListener("click", () => { fs = Math.max(15, fs - 1); localStorage.setItem("jr_fs", fs); applyFs(); });
+
+/* ===== 시작 ===== */
+(async () => {
+  if (LOCAL) { show("login"); return; }
+  if (token) { try { await openLibrary(); return; } catch { logout(); return; } }
+  show("login");
+})();
+</script>
+</body>
+</html>
