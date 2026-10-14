@@ -1,14 +1,13 @@
-# JLPT 物語 개인정보 처리방침 (게시용 원문)
+# JLPT 物語 개인정보 처리방침
 
-공개 URL에 게시할 정본. 한국어가 정본, 영어는 번역본. 근거와 검토 내용은 PLAY_CONSOLE.md §9.
-게시 전 빈칸: 시행일, 접속 기록 보존 기간(○일, Supabase 로그 보존 기간). 이 방침이 약속하는 파기(구매에 연결되지 않은 기기 정보 30일, 법정 기록 5년·3년)는 서버 정리 작업으로 구현해야 한다(MONETIZATION.md §18 「아직 없음」).
+한국어가 정본이며, 영어는 번역본입니다.
 
 ## 한국어 (정본)
 
 ```text
 JLPT 物語 개인정보 처리방침
 
-시행일: 2026년 ○월 ○일 (구매 기능이 포함된 버전 출시일)
+시행일: 2026년 10월 14일
 
 Personal World(이하 "개발자")는 JLPT 物語(이하 "앱")를 이용하는 분의 개인정보를 「개인정보 보호법」 등 관련 법령에 따라 처리합니다.
 
@@ -27,7 +26,7 @@ Personal World(이하 "개발자")는 JLPT 物語(이하 "앱")를 이용하는 
  가. 계약·청약철회 기록, 대금 결제·재화 공급 기록(구매 정보, 위 열람 기록, 해당 구매에 연결된 기기 정보): 5년 (「전자상거래 등에서의 소비자보호에 관한 법률」)
  나. 소비자 불만·분쟁 처리 기록(문의 내용과 처리 기록): 3년 (같은 법)
  다. 구매에 연결되지 않은 기기 정보(결제 전 확인만 하고 구매하지 않은 경우): 등록 후 30일
- 라. 자동 생성 접속 기록: 서버 인프라의 로그 보존 기간(○일) 경과 시 자동 삭제
+ 라. 자동 생성 접속 기록: 서버 인프라의 로그 보존 기간(1일) 경과 시 자동 삭제
  마. 그 밖의 정보: 처리 목적을 달성하면 지체 없이 파기합니다.
 
 3. 파기 절차와 방법
@@ -74,7 +73,7 @@ Personal World(이하 "개발자")는 JLPT 物語(이하 "앱")를 이용하는 
 ```text
 JLPT 物語 Privacy Policy
 
-Effective date: (release date of the version with purchases)
+Effective date: October 14, 2026
 The Korean version is the official text; this is a translation.
 
 Personal World ("we") processes personal information of users of JLPT 物語 (the "App") under the Personal Information Protection Act of Korea and related laws.
@@ -94,7 +93,7 @@ Personal World ("we") processes personal information of users of JLPT 物語 (th
  a. Contract, withdrawal, payment and supply records (purchase data, reading records, devices linked to a purchase): 5 years (Act on Consumer Protection in Electronic Commerce)
  b. Consumer complaint and dispute records (inquiries and how they were handled): 3 years (same Act)
  c. Device data not linked to a purchase (device check without purchase): 30 days after registration
- d. Access logs: deleted automatically after the infrastructure's log retention period (○ days)
+ d. Access logs: deleted automatically after the infrastructure's log retention period (1 day)
  e. Other data: deleted without delay once its purpose is fulfilled
 
 3. Deletion
