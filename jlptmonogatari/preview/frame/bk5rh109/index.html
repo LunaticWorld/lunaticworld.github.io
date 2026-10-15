@@ -57,6 +57,9 @@
   #bodyText p{margin:0 0 1.1em;}
   rt{font-size:.52em; color:var(--sub);}
   body.nofuri rt{display:none;}
+  .tr{display:none;}
+  body.showtr .tr{display:block; font-size:.76em; color:var(--sub);
+    line-height:1.55; margin:.1em 0 .45em;}
   #artImg{width:100%; border-radius:12px; margin:18px 0 4px; display:block;}
   .navrow{display:flex; gap:10px; margin-top:28px;}
   .navrow .btn{width:auto; flex:1;}
@@ -102,6 +105,7 @@
       <button id="rdBack">← 목차</button>
       <span class="sp"></span>
       <button id="furiBtn" class="on">후리가나</button>
+      <button id="trBtn">해석</button>
       <button id="fsDown">가−</button>
       <button id="fsUp">가＋</button>
     </div>
@@ -264,7 +268,8 @@ async function openScene(file, restore){
   $("sceneTitle").textContent = scene.title;
   $("sceneSub").textContent = `${scene.subtitle} · ${curBook ? curBook.label : ""}`;
   $("bodyText").innerHTML = scene.blocks.map((b) =>
-    `<p>${b.sentences.map(renderSentence).join("")}</p>`).join("");
+    `<p>${b.sentences.map((s) =>
+      renderSentence(s) + (s.ko ? `<span class="tr">${esc(s.ko)}</span>` : "")).join("")}</p>`).join("");
   const img = $("artImg");
   if (artUrl) { img.src = artUrl; img.classList.remove("hidden"); }
   else { img.removeAttribute("src"); img.classList.add("hidden"); }
@@ -299,6 +304,14 @@ $("furiBtn").addEventListener("click", () => {
   const on = document.body.classList.toggle("nofuri");
   localStorage.setItem("jr_furi", on ? "0" : "1");
   $("furiBtn").classList.toggle("on", !on);
+});
+const trOn = localStorage.getItem("jr_tr") === "1";
+document.body.classList.toggle("showtr", trOn);
+$("trBtn").classList.toggle("on", trOn);
+$("trBtn").addEventListener("click", () => {
+  const on = document.body.classList.toggle("showtr");
+  localStorage.setItem("jr_tr", on ? "1" : "0");
+  $("trBtn").classList.toggle("on", on);
 });
 let fs = parseInt(localStorage.getItem("jr_fs") || "19", 10);
 function applyFs(){ document.documentElement.style.setProperty("--fs", fs + "px"); }
